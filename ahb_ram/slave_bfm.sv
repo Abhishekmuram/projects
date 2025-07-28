@@ -1,0 +1,60 @@
+`ifndef slave_bfm
+`define slave_bfm
+
+
+class slave_bfm extends uvm_component;
+`uvm_component_utils(slave_bfm)
+
+virtual ahb_if ahf;
+txn t ;
+
+logic [31:0] data_memory[*];
+
+function new(string name="slave_bfm",uvm_component parent=null);
+super.new(name,parent);
+endfunction
+
+function void build_phase(uvm_phase phase);
+super.build_phase(phase);
+if(!uvm_config_db #(virtual ahb_if)::get(this,"","ahf",ahf))
+begin
+`uvm_fatal(get_full_name(),"interface not getting")
+end
+endfunction
+///task to collect memory logic 
+task collect(txn t);
+wait (ahf.hresetn==1);
+
+forever begin 
+ahf.hreadyout=1'b1;
+@(posedge ahf.hclk);
+if(ahf.hreadyout && (ahf.htrans==2'b10 || ahf.htrans==2'b11)) begin
+t.hwrite = ahf.hwrite;
+t.hsize=ahf.hsize;
+t.hburst=ahf.hburst;
+t.htrans=ahf.htrans;
+
+if(ahf.hwrite)begin
+t.hwdata.push_front(ahf.hwdata);
+
+data_memory[ahf.haddr]=t.hwdata.pop_front();
+$display($time,"data_memory[%0d]=%0d",ahf.haddr,data_memory[ahf.haddr]);
+ahf.hreadyout = 1;
+ahf.hres = 0;
+
+end
+else 
+begin
+
+			
+	 ahf.hrdata = data_memory.exists(ahf.haddr) ? data_memory[ahf.haddr] : '0;
+		$display("in slave read data=%0d",ahf.hrdata);
+          ahf.hreadyout = 1;
+          ahf.hres = 0;
+end
+end
+end
+endtask
+endclass
+
+`endif

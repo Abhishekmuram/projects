@@ -1,0 +1,77 @@
+`ifndef sb
+`define sb
+
+class sb extends uvm_scoreboard;
+`uvm_component_utils(sb)
+
+uvm_tlm_analysis_fifo #(txn)master;
+uvm_tlm_analysis_fifo #(txn)slave;
+txn tra;
+txn ta;
+
+int data_collect[int];
+bit [31:0]data;
+
+function new(string name="sb", uvm_component parent=null);
+super.new(name,parent);
+master=new("master",this);
+slave=new("slave",this);
+endfunction
+
+
+function void build_phase(uvm_phase phase);
+super.build_phase(phase);
+endfunction
+
+task store_data(txn tra);
+if (tra.hwrite==1)
+         begin
+                 data_collect[tra.haddr]=tra.hwdata.pop_front();
+ 		 $display("write data data_collect[%0h]=%0h",tra.haddr,data_collect[tra.haddr]);
+         end
+else 
+         begin
+		 tra.hrdata=data_collect[tra.haddr];
+                 $display("read data %0h=data_collect[%0h]",tra.hrdata,data_collect[tra.haddr]);
+	 end
+endtask
+
+
+task checking(txn ta);
+if(data_collect.exists(ta.haddr))
+data=data_collect[ta.haddr];
+
+if(ta.hwrite==1)
+begin
+foreach(ta.hwdata[i])
+if(ta.hwdata[i]==data)
+`uvm_info(get_full_name(),$sformatf("compare hwdata is sucessfull data=%0p hwdata=%0p",data,ta.hwdata),UVM_LOW)
+else
+`uvm_info(get_full_name(),$sformatf("compare hwdata is failed data=%0p hwdata=%0p",data,ta.hwdata),UVM_LOW)
+end
+else
+begin
+if(data==ta.hrdata)
+`uvm_info(get_full_name(),$sformatf("compare hrdata is sucessfull data=%0p hrdata=%0p",data,ta.hrdata),UVM_LOW)
+else
+`uvm_info(get_full_name(),$sformatf("compare hrdata is failed data=%0p hrdata=%0p",data,ta.hrdata),UVM_LOW)
+end
+endtask
+
+task run_phase(uvm_phase phase);
+//fork
+	forever
+		begin
+			master.get(tra);
+			store_data(tra);
+		end
+	forever
+		begin
+			slave.get(ta);
+			checking(ta);
+		end
+//join
+endtask
+
+endclass
+`endif

@@ -1,0 +1,34 @@
+class test extends uvm_test;
+`uvm_component_utils(test)
+ 
+function new(input string name = "test", uvm_component parent=null);
+super.new(name,parent);
+endfunction
+ 
+ env e;
+write w;
+read r;
+random ra;
+
+ 
+ 
+virtual function void build_phase(uvm_phase phase);
+super.build_phase(phase);
+  e = env::type_id::create("e",this);
+  w = write::type_id::create("w");
+  r = read::type_id::create("r");
+  ra= random::type_id::create("ra");
+endfunction
+ 
+virtual task run_phase(uvm_phase phase);
+phase.raise_objection(this);
+ //w.start(e.a.seqr);
+ //#40;
+ //r.start(e.a.seqr);
+  //#40;
+ra.start(e.a.seqr);
+ //#40;
+phase.drop_objection(this);
+endtask
+endclass
+ 

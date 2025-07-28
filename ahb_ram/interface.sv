@@ -1,0 +1,16 @@
+interface ahb_if();
+logic hclk;
+logic hresetn;
+logic hwrite;
+logic [2:0] hsize;
+logic [1:0] htrans;
+logic [2:0] hburst;
+
+logic[31:0] haddr;
+logic[31:0] hwdata;
+logic[31:0] hrdata;
+logic[1:0] hres;
+logic hreadyout; 
+
+endinterface
+

@@ -1,0 +1,45 @@
+
+`include "uvm_macros.svh"
+import uvm_pkg::*; 
+//`include "uvm_macros.svh" 
+`include "s_sequence_item.sv" 
+`include "s_sequence_1.sv" 
+`include "s_sequence_2.sv" 
+`include "s_sequence_3.sv" 
+`include "s_driver.sv" 
+`include "s_monitor.sv" 
+`include "s_agent.sv" 
+`include "s_interface.sv" 
+`include "s_dut.sv" 
+`include "s_sco.sv" 
+`include "s_env.sv" 
+`include "s_test.sv"
+
+module tb;
+ 
+  sram_if sif();
+  
+  sram dut (.clk(sif.clk), .rst(sif.rst),.wr_enable(sif.wr_enable),.addr(sif.addr), .din(sif.din), .dout(sif.dout));
+ 
+  initial 
+  begin
+    uvm_config_db #(virtual sram_if)::set(null, "*", "sif", sif);
+    run_test("test"); 
+  end
+  
+  initial begin
+   //sif.rst = 0;
+    sif.clk = 0;
+  end
+
+initial 
+       begin
+		sif.rst=1;
+		#20;
+		sif.rst=0;
+        end
+  
+  always #10 sif.clk = ~sif.clk;
+  
+ 
+endmodule

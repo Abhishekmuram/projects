@@ -1,0 +1,94 @@
+class test extends uvm_test;
+`uvm_component_utils(test)
+
+env e;
+seq se;
+
+function new(string name="test",uvm_component parent=null);
+super.new(name,parent);
+endfunction
+
+
+function void build_phase(uvm_phase phase);
+super.build_phase(phase);
+e=env::type_id::create("e",this);
+se=seq::type_id::create("se");
+endfunction 
+
+function void end_of_elaboration_phase(uvm_phase phase);
+uvm_top.print_topology();
+endfunction
+
+task run_phase(uvm_phase phase);
+//se=seq::type_id::create("se");
+phase.raise_objection(this);
+se.start(e.ma.seqr);
+phase.drop_objection(this);
+endtask
+
+endclass
+
+// single transafer test 
+class single_transfer_test extends test;
+`uvm_component_utils(single_transfer_test)
+
+single_transfer st;
+function new(string name="single_transfer_test",uvm_component parent=null);
+super.new(name,parent);
+endfunction
+
+task run_phase(uvm_phase phase);
+st=single_transfer::type_id::create("st");
+phase.raise_objection(this);
+st.start(e.ma.seqr);
+#200;
+phase.drop_objection(this);
+endtask 
+
+endclass
+
+// incrementing test 
+
+class increament_sequence_test extends uvm_test;
+`uvm_component_utils(increament_sequence_test)
+env e;
+increament_sequence is;
+function new(string name="increament_sequence_test ",uvm_component parent=null);
+super.new(name,parent);
+endfunction
+
+task run_phase(uvm_phase phase);
+is=increament_sequence::type_id::create("is");
+e=env::type_id::create("e",this);
+phase.raise_objection(this);
+is.start(e.ma.seqr);
+#200;
+phase.drop_objection(this);
+endtask 
+
+endclass
+
+//wrap test 
+
+class wrapping_sequence_test extends test;
+`uvm_component_utils(single_transfer_test)
+
+wrapping_sequence ws;
+function new(string name="wrapping_sequence_test ",uvm_component parent=null);
+super.new(name,parent);
+endfunction
+
+task run_phase(uvm_phase phase);
+ws=wrapping_sequence::type_id::create("ws");
+phase.raise_objection(this);
+ws.start(e.ma.seqr);
+#200;
+phase.drop_objection(this);
+endtask 
+
+endclass
+
+
+
+
+

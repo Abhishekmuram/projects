@@ -1,0 +1,30 @@
+`ifndef env
+`define env
+
+class env extends uvm_env;
+
+`uvm_component_utils(env)
+
+master_agent ma;
+slave_agent  sa;
+sb s;
+
+function new(string name="env",uvm_component parent=null);
+super.new(name,parent);
+endfunction
+
+
+function void build_phase(uvm_phase phase);
+super.build_phase(phase);
+ma=master_agent::type_id::create("ma",this);
+sa=slave_agent::type_id::create("sa",this);
+s=sb::type_id::create("s",this);
+endfunction
+
+function void connect_phase(uvm_phase phase);
+ma.mon.mon_port.connect(s.master.analysis_export);
+sa.s_mon.s_mon_port.connect(s.slave.analysis_export);
+endfunction 
+endclass
+
+`endif

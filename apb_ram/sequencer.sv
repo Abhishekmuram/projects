@@ -1,0 +1,8 @@
+class sequencer extends uvm_sequencer #(transaction);
+`uvm_object_utils(sequencer)
+
+function new(string name="sequencer");
+super.new(name);
+endfunction 
+
+endclass

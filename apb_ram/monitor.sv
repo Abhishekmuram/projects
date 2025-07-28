@@ -1,0 +1,54 @@
+class mon extends uvm_monitor;
+`uvm_component_utils(mon);
+
+transaction tr;
+uvm_analysis_port#(transaction) send;
+virtual apb_if aif;
+
+function new(string name="mon",uvm_component parent=null);
+super.new(name,parent);
+endfunction
+
+virtual function void build_phase(uvm_phase phase);
+    //super.build_phase(phase);
+    tr = transaction::type_id::create("tr");
+    send = new("send", this);
+      if(!uvm_config_db#(virtual apb_if)::get(this,"","aif",aif))//uvm_test_top.env.agent.drv.aif
+        `uvm_error("MON","Unable to access Interface");
+    endfunction
+
+
+virtual task run_phase(uvm_phase phase);
+    forever begin
+      @(posedge aif.pclk);
+      if(!aif.presetn)
+        begin
+        tr.op  = transaction::oper_mode'(0); 
+        `uvm_info("MON", "SYSTEM RESET DETECTED", UVM_NONE);
+         send.write(tr);
+        end
+      else if (aif.presetn && aif.pwrite)
+         begin
+          @(negedge aif.pready);
+          tr.op     = transaction::oper_mode'(1);
+          tr.pwdata = aif.pwdata;
+          tr.paddr  =  aif.paddr;
+          tr.pslverr  = aif.pslverr;
+          `uvm_info("MON", $sformatf("DATA WRITE addr:%0d data:%0d slverr:%0d",tr.paddr,tr.pwdata,tr.pslverr), UVM_NONE); 
+          send.write(tr);
+         end
+      else if (aif.presetn && !aif.pwrite)
+         begin
+           @(negedge aif.pready);
+          tr.op     = transaction::oper_mode'(2); 
+          tr.paddr  =  aif.paddr;
+          tr.prdata   = aif.prdata;
+          tr.pslverr  = aif.pslverr;
+          `uvm_info("MON", $sformatf("DATA READ addr:%0d data:%0d slverr:%0d",tr.paddr, tr.prdata,tr.pslverr), UVM_NONE); 
+          send.write(tr);
+         end
+    
+    end
+   endtask 
+ 
+endclass

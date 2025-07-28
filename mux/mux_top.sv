@@ -1,0 +1,27 @@
+`include "uvm_macros.svh"
+import uvm_pkg::*;
+`include "mux_sequence_item.sv"
+`include "mux_sequence.sv"
+`include "mux_driver.sv"
+`include "mux_monitor.sv"
+`include "mux_sco.sv"
+`include "mux_agent.sv"
+`include "mux_env.sv"
+`include "mux_test.sv"
+`include "mux_dut.sv"
+`include "mux_interface.sv"
+module tb;
+ 
+  mux_if mif();
+  
+  mux dut (.a(mif.a),.b(mif.b),.s(mif.s),.y(mif.y));
+ 
+  initial 
+  begin
+    uvm_config_db #(virtual mux_if)::set(null, "*", "mif", mif);
+    run_test("test"); 
+  end
+  
+  
+endmodule
+ 

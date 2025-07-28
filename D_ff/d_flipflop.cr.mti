@@ -1,0 +1,78 @@
+C:/questasim64_10.7c/examples/UVM/D_ff/d_top.sv {2 {vlog -work work -vopt -sv -stats=none C:/questasim64_10.7c/examples/UVM/D_ff/d_top.sv
+QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 18 2018
+** Note: (vlog-2286) C:/questasim64_10.7c/examples/UVM/D_ff/d_top.sv(1): Using implicit +incdir+C:/questasim64_10.7c/uvm-1.1d/../verilog_src/uvm-1.1d/src from import uvm_pkg
+** Warning: C:/questasim64_10.7c/examples/UVM/D_ff/d_top.sv(2): (vlog-13233) Design unit "d_top_sv_unit" already exists and will be overwritten. Overwriting SystemVerilog $unit with different source files.
+-- Compiling package d_top_sv_unit
+-- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+-- Compiling module dff
+-- Compiling interface dff_if
+-- Compiling module top
+
+Top level modules:
+	top
+
+} {} {}} C:/questasim64_10.7c/examples/UVM/D_ff/d_sequence_3.sv {0 {vlog -work work -vopt -sv -stats=none C:/questasim64_10.7c/examples/UVM/D_ff/d_sequence_3.sv
+QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 18 2018
+** Error: (vlog-13069) C:/questasim64_10.7c/examples/UVM/D_ff/d_sequence_3.sv(1): near "uvm_sequence": syntax error, unexpected IDENTIFIER.
+** Error: C:/questasim64_10.7c/examples/UVM/D_ff/d_sequence_3.sv(1): Error in class extension specification.
+
+} {3.0 5.0} {}} C:/questasim64_10.7c/examples/UVM/D_ff/d_driver.sv {0 {vlog -work work -vopt -sv -stats=none C:/questasim64_10.7c/examples/UVM/D_ff/d_driver.sv
+QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 18 2018
+** Error: (vlog-13069) C:/questasim64_10.7c/examples/UVM/D_ff/d_driver.sv(1): near "uvm_driver": syntax error, unexpected IDENTIFIER.
+** Error: C:/questasim64_10.7c/examples/UVM/D_ff/d_driver.sv(1): Error in class extension specification.
+
+} {3.0 5.0} {}} C:/questasim64_10.7c/examples/UVM/D_ff/d_sequence_item.sv {0 {vlog -work work -vopt -sv -stats=none C:/questasim64_10.7c/examples/UVM/D_ff/d_sequence_item.sv
+QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 18 2018
+** Error: (vlog-13069) C:/questasim64_10.7c/examples/UVM/D_ff/d_sequence_item.sv(1): near "uvm_sequence_item": syntax error, unexpected IDENTIFIER.
+** Error: C:/questasim64_10.7c/examples/UVM/D_ff/d_sequence_item.sv(1): Error in class extension specification.
+
+} {3.0 5.0} {}} C:/questasim64_10.7c/examples/UVM/D_ff/d_interface.sv {1 {vlog -work work -vopt -sv -stats=none C:/questasim64_10.7c/examples/UVM/D_ff/d_interface.sv
+QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 18 2018
+-- Compiling interface dff_if
+
+Top level modules:
+	--none--
+
+} {} {}} C:/questasim64_10.7c/examples/UVM/D_ff/d_sequence_2.sv {0 {vlog -work work -vopt -sv -stats=none C:/questasim64_10.7c/examples/UVM/D_ff/d_sequence_2.sv
+QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 18 2018
+** Error: (vlog-13069) C:/questasim64_10.7c/examples/UVM/D_ff/d_sequence_2.sv(1): near "uvm_sequence": syntax error, unexpected IDENTIFIER.
+** Error: C:/questasim64_10.7c/examples/UVM/D_ff/d_sequence_2.sv(1): Error in class extension specification.
+
+} {3.0 5.0} {}} C:/questasim64_10.7c/examples/UVM/D_ff/d_scoreboard.sv {0 {vlog -work work -vopt -sv -stats=none C:/questasim64_10.7c/examples/UVM/D_ff/d_scoreboard.sv
+QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 18 2018
+** Error: (vlog-13069) C:/questasim64_10.7c/examples/UVM/D_ff/d_scoreboard.sv(1): near "uvm_scoreboard": syntax error, unexpected IDENTIFIER.
+** Error: C:/questasim64_10.7c/examples/UVM/D_ff/d_scoreboard.sv(1): Error in class extension specification.
+
+} {3.0 5.0} {}} C:/questasim64_10.7c/examples/UVM/D_ff/d_dut.sv {1 {vlog -work work -vopt -sv -stats=none C:/questasim64_10.7c/examples/UVM/D_ff/d_dut.sv
+QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 18 2018
+-- Compiling module dff
+
+Top level modules:
+	dff
+
+} {} {}} C:/questasim64_10.7c/examples/UVM/D_ff/d_agent.sv {0 {vlog -work work -vopt -sv -stats=none C:/questasim64_10.7c/examples/UVM/D_ff/d_agent.sv
+QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 18 2018
+** Error: (vlog-13069) C:/questasim64_10.7c/examples/UVM/D_ff/d_agent.sv(1): near "uvm_agent": syntax error, unexpected IDENTIFIER.
+** Error: C:/questasim64_10.7c/examples/UVM/D_ff/d_agent.sv(1): Error in class extension specification.
+
+} {3.0 5.0} {}} C:/questasim64_10.7c/examples/UVM/D_ff/d_monitor.sv {0 {vlog -work work -vopt -sv -stats=none C:/questasim64_10.7c/examples/UVM/D_ff/d_monitor.sv
+QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 18 2018
+** Error: (vlog-13069) C:/questasim64_10.7c/examples/UVM/D_ff/d_monitor.sv(1): near "uvm_monitor": syntax error, unexpected IDENTIFIER.
+** Error: C:/questasim64_10.7c/examples/UVM/D_ff/d_monitor.sv(1): Error in class extension specification.
+
+} {3.0 5.0} {}} C:/questasim64_10.7c/examples/UVM/D_ff/d_test.sv {0 {vlog -work work -vopt -sv -stats=none C:/questasim64_10.7c/examples/UVM/D_ff/d_test.sv
+QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 18 2018
+** Error: (vlog-13069) C:/questasim64_10.7c/examples/UVM/D_ff/d_test.sv(1): near "uvm_test": syntax error, unexpected IDENTIFIER.
+** Error: C:/questasim64_10.7c/examples/UVM/D_ff/d_test.sv(1): Error in class extension specification.
+
+} {3.0 5.0} {}} C:/questasim64_10.7c/examples/UVM/D_ff/d_sequence_1.sv {0 {vlog -work work -vopt -sv -stats=none C:/questasim64_10.7c/examples/UVM/D_ff/d_sequence_1.sv
+QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 18 2018
+** Error: (vlog-13069) C:/questasim64_10.7c/examples/UVM/D_ff/d_sequence_1.sv(1): near "uvm_sequence": syntax error, unexpected IDENTIFIER.
+** Error: C:/questasim64_10.7c/examples/UVM/D_ff/d_sequence_1.sv(1): Error in class extension specification.
+
+} {3.0 5.0} {}} C:/questasim64_10.7c/examples/UVM/D_ff/d_env.sv {0 {vlog -work work -vopt -sv -stats=none C:/questasim64_10.7c/examples/UVM/D_ff/d_env.sv
+QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 18 2018
+** Error: (vlog-13069) C:/questasim64_10.7c/examples/UVM/D_ff/d_env.sv(1): near "uvm_env": syntax error, unexpected IDENTIFIER.
+** Error: C:/questasim64_10.7c/examples/UVM/D_ff/d_env.sv(1): Error in class extension specification.
+
+} {3.0 5.0} {}}

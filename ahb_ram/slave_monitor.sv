@@ -1,0 +1,37 @@
+`include "slave_bfm.sv"
+
+class slave_monitor extends uvm_monitor;
+`uvm_component_utils(slave_monitor)
+virtual ahb_if ahf;
+uvm_analysis_port #(txn)s_mon_port;
+
+txn tra;
+slave_bfm s_bfm;
+
+function new(string name="slave_monitor",uvm_component parent=null);
+super.new(name,parent);
+s_mon_port=new("s_mon_port",this);
+endfunction
+
+function void build_phase(uvm_phase phase);
+super.build_phase(phase);
+if(!uvm_config_db #(virtual ahb_if)::get(this,"","ahf",ahf))
+begin
+`uvm_fatal(get_full_name(),"interface not getting")
+end
+s_bfm=slave_bfm::type_id::create("s_bfm",this);
+endfunction
+
+
+task run_phase(uvm_phase phase);
+begin
+tra=txn::type_id::create("tra");
+s_bfm.collect(tra);
+s_mon_port.write(tra);
+tra.print();
+end
+endtask
+
+endclass
+
+

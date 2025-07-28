@@ -1,0 +1,54 @@
+class txn extends uvm_sequence_item;
+`uvm_object_utils(txn)
+bit hwrite;
+bit [2:0] hsize;
+bit [1:0] htrans;
+bit [2:0] hburst;
+
+rand bit[31:0] haddr;
+rand bit[31:0] hwdata[$];
+bit [31:0] hrdata;
+bit [1:0] hres;
+bit hreadyout;
+
+rand  bit [4:0] burst_len;
+int total_trans;
+int lower_boundary;
+int upper_boundary;
+
+function  new(string name ="txn");
+super.new(name);
+endfunction 
+
+constraint bursts{(hburst inside{3'd2,3'd3}) ->(burst_len==4);
+		  (hburst inside{3'd4,3'd5}) ->(burst_len==8);
+		  (hburst inside{3'd6,3'd7}) ->(burst_len==16);
+		 (hburst inside{3'd0,3'd1}) ->(burst_len==1);}
+
+
+/*function void do_print(uvm_printer printer);
+printer.print_field("hwrite",this.hwrite,1,UVM_DEC);
+printer.print_field("hsize",this.hsize,2,UVM_DEC);
+printer.print_field("hburst",this.hburst,3,UVM_DEC);
+printer.print_field("htrans",this.htrans,2,UVM_DEC);
+printer.print_field("haddr",this.haddr,32,UVM_HEX);
+foreach(hwdata[i])begin
+printer.print_field($sformatf("hwdata",this.hwdata,32,UVM_HEX);
+end
+//printer_print_field("hwdata",this.haddr,32,UVM_HEX);
+
+printer.print_field("hrdata",this.hrdata,32,UVM_DEC);
+printer.print_field("hres",this.hres,2,UVM_DEC);
+printer.print_field("hreadyout",this.hreadyout,1,UVM_DEC);
+endfunction*/
+
+constraint c{hwdata.size==burst_len;}
+function void post_randomize();
+total_trans=burst_len*(2**hsize);
+lower_boundary=haddr-(haddr%total_trans);
+upper_boundary=lower_boundary+(total_trans-1);
+$display($time, " hwdata=%p  haddr=%0d  total_trans=%0d lower=%0h upper=%0h",hwdata,haddr,total_trans,lower_boundary,upper_boundary);
+endfunction
+
+
+endclass
